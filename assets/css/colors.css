@@ -1,0 +1,38 @@
+:root{
+  --hp-color-darkBlue: #34495E;
+  --hp-color-darkBlue-dark: #2F4254;
+  --hp-color-green: #16A085;
+  --hp-color-green-dark: #149077;
+  --hp-color-orange: #F39C12;
+  --hp-color-orange-dark: #DA8C10;
+  --hp-color-blue: #2980B9;
+  --hp-color-blue-dark: #2573A6;
+  --hp-color-red: #E74C3C;
+  --hp-color-red-dark: #CF4436;
+  --hp-color-purple: #8E44AD;
+  --hp-color-purple-dark: #803D9B;
+}
+
+.hp-bg-darkBlue{
+  background-color: var(--hp-color-darkBlue);
+}
+
+.hp-bg-green{
+  background-color: var(--hp-color-green);
+}
+
+.hp-bg-orange{
+  background-color: var(--hp-color-orange);
+}
+
+.hp-bg-blue{
+  background-color: var(--hp-color-blue);
+}
+
+.hp-bg-red{
+  background-color: var(--hp-color-red);
+}
+
+.hp-bg-purple{
+  background-color: var(--hp-color-purple);
+}

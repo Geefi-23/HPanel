@@ -1,0 +1,129 @@
+@import url('./sidebar.css');
+@import url('./bootstrap.css');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&family=Roboto:ital,wght@1,300&display=swap');
+
+.dashboard .section-card{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  color: #fff;
+  height: 225px;
+  width: 470px;
+  box-shadow: 0 .75rem .5rem rgb(0, 0, 0, .1);
+}
+
+.section-card__icon{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+  width: 70px;
+  top: 0;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  z-index: 9;
+}
+
+.section-card__icon i{
+  font-size: 30px;
+}
+
+.section-card__details{
+  height: 200px;
+  width: 100%;
+  padding-top: 3rem;
+  margin-top: 25px;
+  text-align: center;
+}
+
+.section-card__see-more-btn{
+  position: absolute;
+  color: #fff;
+  height: 40px;
+  width: 100%;
+  border: none;
+  bottom: 0;
+  transition: background-color ease-in .15s;
+}
+
+.section-card .section-card__see-more-btn:hover{
+  background-color: rgb(0, 0, 0, .3);
+}
+
+.section-card--darkBlue .section-card__icon,
+.section-card--darkBlue .section-card__details{
+  background-color: var(--hp-color-darkBlue);
+}
+
+.section-card--darkBlue .section-card__see-more-btn{
+  background-color: var(--hp-color-darkBlue-dark);
+}
+
+.section-card--green .section-card__icon,
+.section-card--green .section-card__details{
+  background-color: var(--hp-color-green);
+}
+
+.section-card--green .section-card__see-more-btn{
+  background-color: var(--hp-color-green-dark);
+}
+
+.section-card--orange .section-card__icon,
+.section-card--orange .section-card__details{
+  background-color: var(--hp-color-orange);
+}
+
+.section-card--orange .section-card__see-more-btn{
+  background-color: var(--hp-color-orange-dark);
+}
+
+.section-card--blue .section-card__icon,
+.section-card--blue .section-card__details{
+  background-color: var(--hp-color-blue);
+}
+
+.section-card--blue .section-card__see-more-btn{
+  background-color: var(--hp-color-blue-dark);
+}
+
+.section-card--red .section-card__icon,
+.section-card--red .section-card__details{
+  background-color: var(--hp-color-red);
+}
+
+.section-card--red .section-card__see-more-btn{
+  background-color: var(--hp-color-red-dark);
+}
+
+.section-card--purple .section-card__icon,
+.section-card--purple .section-card__details{
+  background-color: var(--hp-color-purple);
+}
+
+.section-card--purple .section-card__see-more-btn{
+  background-color: var(--hp-color-purple-dark);
+}
+
+@media screen and (max-width: 1366px){
+
+  .dashboard .section-card{
+    height: 160px;
+    width: 330px;
+  }
+
+  .section-card__details{
+    padding-top: 2rem;
+  }
+
+  .section-card__icon{
+    height: 50px;
+    width: 50px;
+  }
+
+  .section-card__see-more-btn{
+    height: 25px;
+  }
+}

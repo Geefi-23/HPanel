@@ -1,0 +1,73 @@
+#sidebar{
+  background: #054468;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 225px;
+  height: 100%;
+  padding: 2rem 0;
+  transition: all 0.5s ease;
+  z-index: 1060;
+}
+
+#user-area{
+  height: 260px;
+}
+
+#avatar{
+  background-color: white;
+  height: 170px;
+  width: 170px;
+  border-radius: 50%;
+}
+
+.nav__menu{
+  list-style: none;
+  padding: 0;
+}
+
+.nav__menu .nav__link{
+  background-color: #054468;
+  height: 50px;
+  border-bottom: 1px solid #094c73;
+  cursor: pointer;
+}
+
+.nav__menu .nav__link:first-child{
+  border-top: 1px solid #094c73;
+  border-bottom: 1px solid #094c73;
+}
+
+.nav__menu .nav__link a{
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  color: white;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  text-decoration: none;
+  padding-left: 2rem;
+  transition: background-color ease-in .1s;
+}
+
+.nav__menu .nav__link a:hover{
+  background-color: rgb(255, 255, 255, .8);
+  color: #054468;
+}
+
+.nav__menu .nav__link a.active{
+  background-color: #eef5ff;
+  color: #054468;
+}
+
+@media screen and (max-width: 1366px){
+  #sidebar{
+    width: 200px;
+  }
+
+  #avatar{
+    height: 150px;
+    width: 150px;
+  }
+}

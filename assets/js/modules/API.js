@@ -1,16 +1,16 @@
-const usersRoute = '/assets/backend/crud/user/';
+const usersRoute = '/painel/assets/backend/crud/user/';
+const newsRoute = '/painel/assets/backend/crud/noticia/';
 
 const API = () => {
   return {
-    user: async (action, user) => {
-      let init = {
-        method: 'POST',
-        body: JSON.stringify(user),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      };
+    user: async (action, init = {}) => {
+      
       let res = await (await fetch(usersRoute+action+'.php', init)).json();
+      return res;
+    },
+    news: async (action, init = {}) => {
+      
+      let res = await (await fetch(newsRoute+action+'.php', init)).json();
       return res;
     }
   };

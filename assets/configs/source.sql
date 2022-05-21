@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS hp_users(
   nome varchar(30) not null,
   senha varchar(16) not null,
   cargo int not null,
+  ultimo_login timestamp,
   primary key(id)
 );
 

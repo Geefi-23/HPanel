@@ -1,6 +1,7 @@
 <?php
-  header('Access-Control-Allow-Origin: *');
-  header('Access-Control-Allow-Header: Content-Type');
+  header('Access-Control-Allow-Headers: Content-Type, Set-Cookie');
+  header('Access-Control-Allow-Origin: http://localhost:3000');
+  header('Access-Control-Allow-Credentials: true');
 
   require '../../DataBase.php';
   require '../../Token.php';
@@ -9,7 +10,7 @@
 
   $nome = $data->nome;
   $senha = md5($data->senha);
-  $senha = substr($senha, strlen($senha) / 2, strlen($senha)-3);
+  $senha = substr($senha, 5);
 
   $db = DataBase::getInstance();
   $sql = "SELECT u.*, hp_cargos.nome AS `nome_cargo` FROM hp_users AS u 
@@ -27,10 +28,12 @@
   if (empty($result)) die(print(json_encode([ "error" => "Usuário não encontrado" ])));
   
   $jwt = Token::create($result['id']);
+
   $response = [
     "success" => "Usuário encontrado!",
     "user" => $result,
-    'jwt' => $jwt
   ];
+
+  header("Set-Cookie: hp_pages_auth={$jwt}; path=/;");
   echo json_encode($response);
 ?>

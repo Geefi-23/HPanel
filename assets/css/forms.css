@@ -1,0 +1,46 @@
+.post-form{
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  gap: .75rem;
+}
+
+.post-form input, .post-form select{
+  height: 40px;
+  
+}
+
+.post-form input, .post-form textarea{
+  padding: .5rem;
+  border: 1px solid #d1d1d1;
+  border-radius: .25rem;
+}
+
+.post-form select{
+  width: 100%;
+  border: none;
+}
+
+.post-form .submit{
+  height: 40px;
+  width: 150px;
+  border: 1px solid #d1d1d1;
+  border-radius: .25rem;
+}
+
+.file-input-btn{
+  display: inline-flex;
+  align-items: center;
+  background-color: #075583;
+  color: #fff;
+  height: 40px;
+  padding: 0 .75rem;
+  border: none;
+  border-radius: .25rem;
+  cursor: pointer;
+  transition: background-color .1s ease-in-out;
+}
+
+.file-input-btn:hover{
+  background-color: #054a72;
+}

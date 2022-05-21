@@ -1,0 +1,53 @@
+h4{
+  font-weight: 400;
+}
+
+.dashboard{
+  grid-template-columns: auto auto auto auto;
+  justify-content: start;
+  margin-left: 4rem;
+}
+
+.functional-card{
+  background-color: white;
+  color: #000;
+  height: 170px;
+  width: 350px;
+  padding: 1rem;
+  border: 1px solid transparent;
+  border-top-width: 4px;
+  border-top-color: #054468;
+  box-shadow: 0 .25rem .4rem rgb(0, 0, 0, .07);
+  line-height: 1.1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all ease-in-out .15s;
+}
+
+.functional-card:hover{
+  color: #000;
+}
+
+.functional-card--static{
+  background-color: white;
+  height: auto;
+  width: 350px;
+  padding: 1rem;
+  border: 1px solid transparent;
+  border-top-width: 4px;
+  border-top-color: #054468;
+  line-height: 1.2;
+  box-shadow: 0 .25rem .4rem rgb(0, 0, 0, .07);
+}
+
+.functional-card:hover{
+  border-color: #dee2e6;
+  border-top-color: #0b6092;
+  box-shadow: none;
+}
+
+@media screen and (max-width: 1366px){
+  .dashboard{
+    grid-template-columns: auto auto auto;
+  }
+}

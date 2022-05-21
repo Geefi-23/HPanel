@@ -1,71 +1,61 @@
-<div class="wrapper">
-  <div class="sidebar">
-      <div class="profile">
-          <img src="https://i.pinimg.com/originals/3d/3d/66/3d3d660132d05053ba2709f2e46de978.jpg">
-          <h3 id="prof-username"></h3>
-          <p id="prof-role"></p>
-      </div>
-      <ul>
-          <li>
-              <button class="active" onclick="window.location.href = '/'" role="link">
-                  <span class="icon"><i class="fas fa-user-alt"></i></span>
-                  <span class="item">Inicio</span>
-              </button>
-          </li>
-          <li>
-              <button href="#">
-                  <span class="icon"><i class="fas fa-desktop"></i></span>
-                  <span class="item">Coordenadores</span>
-              </button>
-          </li>
-          <li>
-              <button class="so-accordion-trigger">
-                  <span class="icon"><i class="fas fa-user-friends"></i></span>
-                  <span class="item">Posts</span>
-              </button>
-              <ul class="accordion sub-option-group">
-                  <li>
-                      <a class="sub-option" href="/post-news.php">Postar notícia</a>
-                  </li>
-                  <li>
-                      <a class="sub-option" href="">Postar tópico</a>
-                  </li>
-                  <li>
-                      <a class="sub-option" href="">Postar coluna</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
-              <button href="#">
-                  <span class="icon"><i class="fas fa-play"></i></span>
-                  <span class="item">Radio</span>
-              </button>
-          </li>
-          <li>
-              <button href="#">
-                  <span class="icon"><i class="fas fa-music"></i></span>
-                  <span class="item">Packs Musica</span>
-              </button>
-          </li>
-          <li>
-              <button href="#">
-                  <span class="icon"><i class="far fa-clock"></i></span>
-                  <span class="item">Marcar Horario</span>
-              </button>
-          </li>
-          <li>
-              <button href="#">
-                  <span class="icon"><i class="fal fa-receipt"></i></span>
-                  <span class="item">Emblemas</span>
-              </button>
-          </li>
-          <li>
-              <button href="#">
-                  <span class="icon"><i class="fas fa-cog"></i></span>
-                  <span class="item">Desenvolvedor</span>
-              </button>
-              <p style="color: #fff;margin-top: 10px;font-size: 10px;margin-left: 11px;">Hpainel Desenvolvido Por MarcosStivis e Geefi</p>
-          </li>
-      </ul>
+<?php 
+  $base_uri = '/painel';
+  $links = [
+    [
+      "type" => "Inicio",
+      "href" => $base_uri."/",
+      "icon" => 'fas fa-user-alt'
+    ],
+    [
+      "type" => "Coordenadores",
+      "href" => $base_uri."/coordenadores",
+      "icon" => 'fas fa-desktop'
+    ],
+    [
+      "type" => "Noticias",
+      "href" => $base_uri."/noticias",
+      "icon" => 'fas fa-user-friends'
+    ],
+    [
+      "type" => "Rádio",
+      "href" => $base_uri."/radio",
+      "icon" => 'fas fa-play'
+    ],
+    [
+      "type" => "Pack Música",
+      "href" => $base_uri."/musicas",
+      "icon" => 'fas fa-music'
+    ],
+    [
+      "type" => "Emblemas",
+      "href" => $base_uri."/emblemas",
+      "icon" => 'fas fa-receipt'
+    ],
+    [
+      "type" => "Desenvolvedor",
+      "href" => $base_uri."/dev",
+      "icon" => 'fas fa-cog'
+    ],
+  ];
+?>
+<div id="sidebar">
+  <div id="user-area">
+    <div id="avatar" class="m-auto"></div>
+    <h3 id="user-area__name" class="text-white text-center m-0 mt-2">Geefi</h3>
+    <div id="user-area__role" class="text-white text-center">Desenvolvedor</div>
   </div>
-  </div>
+  <nav>
+    <ul class="nav__menu">
+      <?php foreach($links as $link):?>
+      <li class="nav__link">
+        <a class="<?php if ($_SERVER['REQUEST_URI'] == $link["href"]) echo 'active'; ?>"
+        href="<?php echo $link["href"] ?>">
+          <i class="<?php echo $link["icon"];?>"></i>
+          <span class="ms-2"><?php echo $link['type']; ?></span>
+        </a>
+      </li>
+      <?php endforeach;?>
+    </ul>
+  </nav>
+</div>
+<script src="/painel/assets/js/sidebar.js"></script>
