@@ -19,8 +19,12 @@ main{
   flex: 1 0 0;
 }
 
-input:focus, textarea:focus, button:active, select:focus {
+input:focus, textarea:focus, button:active, select:focus, div[contenteditable] {
   outline: 0;
+}
+
+div[contenteditable]{
+  cursor: text;
 }
 
 img {

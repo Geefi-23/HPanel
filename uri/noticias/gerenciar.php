@@ -26,20 +26,7 @@
   <?php
     require '../../assets/components/sidebar.php';
   ?>
-  <main class="d-flex gap-3 flex-column p-3" id="noticias">
-    <div class="news-card">
-      <div class="news-card__img"></div>
-      <div class="news-card__resume">
-        <strong>Opaaaaa</strong>
-        <span>
-          EaeaeeaeeeeaeaeaeaeaaeeaeeaeaeaaeaeeaaeaeeaeaaEaeaeeaeeeeaeaeaeaeaaee
-          Eaeaeeaeeeeaeaeaeaeaaeeaeeaeaeaaeaeeaaeaeeaeaaeeaeaeatext-overflow: ellipsis;aeeaeaeaaeaeeaaeaeeaeaaeeaeaea
-          Eaeaeeaeeeeaeaeaeaeaaeeaeeaeaeaaeaeeaaeaeeaeaaeeaeaeaeeaeaea
-        </span>
-        <small>Por: </small>
-      </div>
-    </div>
-  </main>
+  <main class="d-flex gap-3 flex-column p-3" id="noticias"></main>
 
   <script type="module">
     import API from '/painel/assets/js/modules/API.js';

@@ -14,24 +14,16 @@
 
   $db = HabbletDataBase::getInstance();
 
-  $titulo = $data->titulo;
-  $resumo = $data->resumo;
-  $texto = $data->texto;
-  $status = $data->status;
   $url = $data->url;
 
-  $sql = 'UPDATE noticias SET titulo = ?, resumo = ?, texto = ?, status = ? WHERE url = ?';
+  $sql = 'DELETE FROM noticias WHERE url = ?';
   $query = $db->prepare($sql);
-  $query->bindValue(1, $titulo);
-  $query->bindValue(2, $resumo);
-  $query->bindValue(3, $texto);
-  $query->bindValue(4, $status);
-  $query->bindValue(5, $url);
+  $query->bindValue(1, $url);
   try {
     $query->execute();
   } catch (PDOException $e) {
-    print(json_encode([ 'error' => 'Não foi possível atualizar esta notícia', 'details' => $e->errorInfo ]));
+    return print(json_encode([ 'error' => 'Não foi possível deletar esta notícia', 'details' => $e->errorInfo ]));
   }
 
-  echo json_encode([ 'success' => 'Noticia atualizada com sucesso' ]);
+  echo json_encode([ 'success' => 'Noticia deletada com sucesso' ]);
 ?>

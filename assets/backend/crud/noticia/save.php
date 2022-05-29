@@ -1,6 +1,6 @@
 <?php
   header('Access-Control-Allow-Headers: Content-Type, Set-Cookie');
-  header('Access-Control-Allow-Origin: http://localhost:3000');
+  header('Access-Control-Allow-Origin: http://179.221.124.17/');
   header('Access-Control-Allow-Credentials: true');
 
   require '../../HabbletDataBase.php';

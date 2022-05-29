@@ -1,3 +1,4 @@
+
 .news-card{
   display: flex;
   flex-shrink: 0;
@@ -38,4 +39,8 @@
   overflow: hidden;
   white-space: normal;
   word-wrap: break-word;
+}
+
+input:disabled{
+  background-color: #d1d1d1;
 }
