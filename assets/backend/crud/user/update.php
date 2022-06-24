@@ -1,6 +1,6 @@
 <?php
-  header('Access-Control-Allow-Headers: Content-Type, Set-Cookie');
-  header('Access-Control-Allow-Origin: http://localhost:3000');
+  header("Access-Control-Allow-Origin: http://localhost:3000");
+  header('Access-Control-Allow-Header: Content-Type');
   header('Access-Control-Allow-Credentials: true');
 
   require '../../DataBase.php';
@@ -23,17 +23,22 @@
     return print(json_encode([ "error" => "Você não tem permissão para realizar essa ação." ]));
   }
 
-  $id = $_GET['id'];
+  $data = json_decode(file_get_contents('php://input'));
+  
+  $id = $data->id;
+  $nome = $data->nome;
+  $cargo = $data->cargo;
 
-  $sql = "DELETE FROM hp_users WHERE id = $id AND cargo != 1";
+  $sql = 'UPDATE hp_users SET nome = ?, cargo = ? WHERE id = ?';
   $query = $db->prepare($sql);
+  $query->bindValue(1, $id);
+  $query->bindValue(2, $nome);
+  $query->bindValue(3, $cargo);
   try {
     $query->execute();
   } catch (PDOException $e) {
-    echo var_dump($e->errorInfo);
+    return print(json_encode([ 'error' => $e->errorInfo ]));
   }
-  $response = [
-    "success" => "Usuário deletado com sucesso!"
-  ];
-  echo json_encode($response);
+
+  json_encode([ 'success' => 'Editado com sucesso.' ])
 ?>

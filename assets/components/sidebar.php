@@ -27,8 +27,8 @@
       "icon" => 'fas fa-music'
     ],
     [
-      "type" => "Emblemas",
-      "href" => $base_uri."/emblemas",
+      "type" => "Compráveis",
+      "href" => $base_uri."/compraveis",
       "icon" => 'fas fa-receipt'
     ],
     [
@@ -36,6 +36,11 @@
       "href" => $base_uri."/dev",
       "icon" => 'fas fa-cog'
     ],
+    [
+      "type" => "Sair",
+      "href" => $base_uri."/assets/backend/crud/user/logout.php",
+      "icon" => 'fas fa-sign-out-alt'
+    ]
   ];
 ?>
 <div id="sidebar">

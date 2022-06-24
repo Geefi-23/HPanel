@@ -25,7 +25,17 @@
     echo $e->errorInfo;
   }
   $result = $query->fetch(PDO::FETCH_ASSOC);
-  if (empty($result)) die(print(json_encode([ "error" => "Usuário não encontrado" ])));
+  if (!$result) 
+    die(print(json_encode([ "error" => "Usuário não encontrado" ])));
+
+  $currenttime = time();
+
+  $sql = "UPDATE hp_users SET ultimo_login = ?, ultimo_ip = ? WHERE id = ?";
+  $query = $db->prepare($sql);
+  $query->bindValue(1, $currenttime, PDO::PARAM_INT);
+  $query->bindValue(2, $_SERVER['REMOTE_ADDR']);
+  $query->bindValue(3, $result['id'], PDO::PARAM_INT);
+  $query->execute();
   
   $jwt = Token::create($result['id']);
 
@@ -34,6 +44,10 @@
     "user" => $result,
   ];
 
-  header("Set-Cookie: hp_pages_auth={$jwt}; path=/;");
+  $expires = new DateTime('now');
+  $expires->setTimezone(new DateTimeZone('America/Sao_Paulo'));
+  $expires->modify('+4 hours');
+
+  header("Set-Cookie: hp_pages_auth={$jwt}; path=/; HttpOnly; expires=".$expires->format(DateTime::COOKIE)); // expira em uma hora
   echo json_encode($response);
 ?>

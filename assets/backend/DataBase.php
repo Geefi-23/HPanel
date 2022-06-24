@@ -1,4 +1,5 @@
 <?php
+
 class DataBase{
   // CONFIGURAÇÃO DO SEU BANCO DE DADOS
   private static $username = 'geefi';

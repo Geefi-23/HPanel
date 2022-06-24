@@ -8,7 +8,7 @@
   require '../../Token.php';
 
   if (!isset($_COOKIE['hp_pages_auth']) || !Token::isValid($_COOKIE['hp_pages_auth']))
-    return print(json_encode([ 'erro' => 'Token de autenticação inválido!'])); //erro
+    return print(json_encode([ 'erro' => 'Token de autenticação inválido!']));
 
   $data = json_decode(file_get_contents('php://input'));
 

@@ -22,51 +22,14 @@
   <link rel="stylesheet" href="/painel/assets/css/sidebar.css">
   <link rel="stylesheet" href="/painel/assets/css/forms.css">
   <link rel="stylesheet" href="/painel/assets/css/notifications.css">
+  <link rel="stylesheet" href="/painel/assets/css/loader.css">
 
-  <style>
-    #loader-backdrop{
-      position: absolute;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      background-color: rgba(0, 0, 0, .3);
-      height: 100vh;
-      width: 100vw;
-      top: 0;
-      left: 0;
-      z-index: 1061;
-    }
-
-    .loader-track{
-      background-color: transparent;
-      height: 60px;
-      width: 60px;
-      border: 4px solid #dee2e6;
-      border-bottom-color: var(--hp-color-blue);
-      border-radius: 50%;
-      animation: spinning infinite 1s;
-    }
-
-    @keyframes spinning{
-      from {
-        transform: rotate(0deg)
-      }
-
-      to {
-        transform: rotate(360deg)
-      }
-    }
-
-  </style>
-
-  <title>Postar noticia</title>
+  <title>HPanel | Postar noticia</title>
 </head>
 <body>
-  <div id="loader-backdrop">
-    <div class="loader-track"></div>
-  </div>
   <div class="notifications"></div>
   <?php
+    require '../../assets/components/loader.php';
     require '../../assets/components/sidebar.php';
   ?>
   <main class="p-3">
@@ -84,7 +47,19 @@
       <label style="width: 200px;border-color: #d1d1d1 !important" class="border rounded p-2">
         <span>Escolha uma categoria: </span>
         <select name="categoria">
-          <option value="1">Moda</option>
+          <?php
+            require '../../assets/backend/HabbletDataBase.php';
+
+            $db = HabbletDataBase::getInstance();
+
+            $sql = 'SELECT id, nome FROM noticias_cat';
+            $query = $db->prepare($sql);
+            $query->execute();
+
+            foreach($query->fetchAll() as $category) {
+              echo "<option value=\"{$category['id']}\">{$category['nome']}</option>";
+            }
+          ?>
         </select>
       </label>
       <textarea id="noticiaWriter"></textarea> 
@@ -92,58 +67,6 @@
     </form>
   </main>
   <script src="//cdn.ckeditor.com/4.19.0/full/ckeditor.js"></script>
-  <script type="module">
-    import notif from '/painel/assets/js/modules/notifications.js';
-
-    const API = 'http://localhost:8000/api/'
-
-    CKEDITOR.replace('noticiaWriter');
-
-    let formNoticia = document.forms.noticia;
-
-    formNoticia.imagem.onchange = function() {
-      document.querySelector('#image-name').innerText = this.files[0].name;
-
-    };
-
-    formNoticia.onsubmit = async (evt) => {
-      formNoticia.querySelector('button[type="submit"]').disabled = true;
-      document.querySelector('#loader-backdrop').style.display = 'flex';
-      evt.preventDefault();
-
-      if (formNoticia.titulo === '' || formNoticia.resumo === '' || CKEDITOR.instances.noticiaWriter.getData() === '') {
-        document.querySelector('#loader-backdrop').style.display = 'none';
-        formNoticia.querySelector('button[type="submit"]').disabled = false;
-        return alert('Algum dos campos não foi preenchido');
-      }
-
-      let formData = new FormData();
-      
-      let data = {
-        criador: JSON.parse(localStorage.getItem('hp_user')).nome,
-        titulo: formNoticia.titulo.value,
-        resumo: formNoticia.resumo.value,
-        categoria: formNoticia.categoria.value,
-        texto: CKEDITOR.instances.noticiaWriter.getData()
-      };
-
-      formData.append('imagem', formNoticia.imagem.files[0]);
-      formData.append('json', JSON.stringify(data));
-
-      let res = await (await fetch(API+'news/save.php', {
-        method: 'POST',
-        body: formData,
-        credentials: 'include'
-      })).json();
-
-      if (res.error)
-        return notif.dispatch('danger', 'Erro', res.error);
-      else notif.dispatch('success', 'Sucesso', res.success);
-
-      document.querySelector('#loader-backdrop').style.display = 'none';
-      formNoticia.querySelector('button[type="submit"]').disabled = false;
-    };
-
-  </script>
+  <script src="/painel/assets/js/noticias_postar.js" type="module"></script>
 </body>
 </html>

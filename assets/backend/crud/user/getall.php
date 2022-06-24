@@ -6,11 +6,14 @@
   require '../../DataBase.php';
   require '../../Token.php';
 
-  if (!isset($_COOKIE['hp_pages_auth']) || !Token::isValid($_COOKIE['hp_pages_auth'])) return print(json_encode([ "error" => "Não autorizado" ]));
+  if (!isset($_COOKIE['hp_pages_auth']) || !Token::isValid($_COOKIE['hp_pages_auth'])) 
+    return print(json_encode([ "error" => "Não autorizado" ]));
 
   $db = DataBase::getInstance();
-  $sql = "SELECT u.id, u.nome, u.ultimo_login, hp_cargos.nome AS `cargo` FROM hp_users AS u 
-  INNER JOIN hp_cargos ON hp_cargos.id = u.cargo";
+  $sql = 'SELECT u.id, u.nome, u.ultimo_login, u.ultimo_ip, c.id AS `cargo_id`, c.nome AS `cargo` 
+          FROM hp_users AS u
+          INNER JOIN hp_cargos AS c
+          ON u.cargo = c.id';
   $query = $db->prepare($sql);
   $query->execute();
   $result = $query->fetchAll(PDO::FETCH_ASSOC);

@@ -1,5 +1,6 @@
 import api from './modules/API.js';
 import notif from './modules/notifications.js';
+import loader from './modules/Loader.js';
 
 const form = document.querySelector('#form-login');
 const inputUsername = form.querySelector('#in-username');
@@ -52,8 +53,9 @@ form.onsubmit = async (evt) => {
     },
     credentials: 'include'
   };
-
-  let res = await api.user('get', init);
+  loader.show();
+  let res = await api.user('get', {}, init);
+  loader.hide();
   if (res.error) return notif.dispatch('danger', 'Erro', res.error);
   localStorage.setItem('hp_user', JSON.stringify(res.user));
   window.location.href = '/painel/';

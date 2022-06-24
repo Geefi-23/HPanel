@@ -15,11 +15,12 @@
   <link rel="stylesheet" href="assets/css/reset.css">
   <link rel="stylesheet" href="assets/css/login.css">
   <link rel="stylesheet" href="assets/css/notifications.css">
+  <link rel="stylesheet" href="assets/css/loader.css">
   <title>HPainel | Login</title>
 </head>
 <body>
-  <div class="notifications">
-  </div>
+  <div class="notifications"></div>
+  <?php require 'assets/components/loader.php'; ?>
   <div class="form-container">
     <form id="form-login" class="d-flex flex-column">
       <h2 class="text-center">HPanel - Painel Administrativo</h2>

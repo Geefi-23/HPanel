@@ -21,6 +21,8 @@
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="assets/css/reset.css">
   <link rel="stylesheet" href="assets/css/sidebar.css">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
+  <!-- BOOTSTRAP 3 POR CAUSA DO EDITOR RICH TEXT DESATUALIZADO. ATUALIZE ASSIM QUE POSSIVEL -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="assets/css/bootstrap.css">
   <link rel="stylesheet" href="assets/css/functional-card.css">
@@ -33,35 +35,19 @@
   ?>
   <main>
     <div class="dashboard">
-      <a href="noticias/postar" class="functional-card">
-        <h4>Postar Noticia</h4>
-        <p>Use esta área para postagem de notícias.</p>
+      <a href="compraveis/postar" class="functional-card">
+        <h4>Postar Comprável</h4>
+        <span>Use esta área para postagem de compráveis.</span>
       </a>
-      <a href="evento/postar" class="functional-card">
-        <h4>Postar Evento</h4>
-        <p>Use esta área para postagem de eventos.</p>
+      <a href="compraveis/postar-raro" class="functional-card">
+        <h4>Postar Raro</h4>
+        <span>Use esta área para postagem de raros.</span>
       </a>
-      <a href="noticias/comentarios" class="functional-card">
-        <h4>Gerenciar comentários</h4>
-        <p>Área destinada ao gerenciamento geral de todos os comentarios em qualquer tópico ou post.</p>
-      </a>
-      <a href="noticias/gerenciar" class="functional-card">
-        <h4>Gerenciar notícias</h4>
-        <p>Área destinada ao gerenciamento geral de todos as notícias da plataforma.</p>
+      <a href="compraveis/gerenciar" class="functional-card">
+        <h4>Gerenciar compráveis</h4>
+        <span>Use esta área para gerenciar itens compráveis</span>
       </a>
     </div>
-    
   </main>
-    <!--<h2 class="demo-text">Postagem De Noticias </h2>
-      
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12 nopadding">
-            <input type="text" style="width: 700px;height:40px;border:1px solid #dee2e6;padding-left: 10px" placeholder="Título da notícia">
-            <textarea id="txtEditor"></textarea> 
-          </div>
-        </div>
-      </div> -->
-  
 </body>
 </html>

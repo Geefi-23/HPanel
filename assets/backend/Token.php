@@ -22,6 +22,7 @@
       return $token;
     }
     public static function decode($token) {
+      
       $token = explode('.', $token);
       $token[0] = json_decode(base64_decode($token[0]));
       $token[1] = json_decode(base64_decode($token[1]));
@@ -29,6 +30,9 @@
       return $token;
     }
     public static function isValid($token) {
+      if ($token == 'deleted')
+        return;
+
       $decoded = explode('.', $token);
       $header = $decoded[0];
       $payload = $decoded[1];
