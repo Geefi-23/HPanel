@@ -6,9 +6,10 @@
   require '../../Token.php';
   require '../../utils/Permissions.php';
   require '../../entities/User.php';
+  require '../../Authenticate.php';
 
-  if (!isset($_COOKIE['hp_pages_auth']) || !Token::isValid($_COOKIE['hp_pages_auth'])) 
-    return print(json_encode([ "error" => "Autenticação inválida." ]));
+  if (!authenticate())
+    return print(json_encode([ 'error' => 'Você não está autorizado.' ]));
 
   $db = DataBase::getInstance();
 
@@ -32,6 +33,10 @@
   $senha = md5($data->senha);
   $senha = substr($senha, 5);
   $cargo = $data->cargo;
+
+  if ($nome == '' || $senha == '') {
+    return print(json_encode([ 'error' => 'Algum dos campos está vazio.' ]));
+  }
 
   $sql = "SELECT * FROM hp_users WHERE nome = :nome";
   $query = $db->prepare($sql);

@@ -1,9 +1,9 @@
 <?php
-  require './assets/backend/Token.php';
-  if (!isset($_COOKIE['hp_pages_auth']) || !Token::isValid($_COOKIE['hp_pages_auth']))
-    header('Location: /painel/login');
-?>
+  require 'assets/backend/Authenticate.php';
 
+  if (!authenticate()) 
+	  header('Location: /painel/login');
+?>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="assets/css/bootstrap.css">
   <link rel="stylesheet" href="assets/css/functional-card.css">
 
-  <title>Rádio</title>
+  <title>HPainel | Rádio</title>
 </head>
 <body>
   <?php
@@ -50,10 +50,10 @@
         <h4>Vinhetas</h4>
         <span>Vinhetas disponíveis para uso do locutor.</span>
       </div>
-      <div class="functional-card">
+      <a href="radio/horarios" class="functional-card">
         <h4>Horários</h4>
         <span>Tabela de horários marcados para a entrada de locutores.</span>
-      </div>
+      </a>
       <div class="functional-card">
         <h4>Marcar Horário</h4>
         <span>Locutor, marque seu horário aqui!</span>

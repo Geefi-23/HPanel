@@ -5,16 +5,16 @@
 
   require '../../HabbletDataBase.php';
   require '../../DataBase.php';
-  require '../../Token.php';
+  require '../../Authenticate.php';
 
-  $dir = '../../images/';
-  if (!isset($_COOKIE['hp_pages_auth']) || !Token::isValid($_COOKIE['hp_pages_auth']))
-    return print(json_encode([ 'erro' => 'Token de autenticação inválido!'])); //erro
+  if (!authenticate())
+    return print(json_encode([ 'error' => 'Você não está autorizado.' ]));
 
   $hbdb = HabbletDataBase::getInstance();
   $db = DataBase::getInstance();
 
   $data = json_decode($_POST['json']);
+  $dir = '../../images/';
 
   $user = Token::decode($_COOKIE['hp_pages_auth'])[1];
   $query = $db->prepare("SELECT * FROM hp_users WHERE id = ".$user->sub);

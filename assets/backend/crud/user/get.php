@@ -8,7 +8,7 @@
 
   $data = json_decode(file_get_contents('php://input'));
 
-  $nome = $data->nome;
+  $nome = trim($data->nome);
   $senha = md5($data->senha);
   $senha = substr($senha, 5);
 

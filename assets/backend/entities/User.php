@@ -34,6 +34,10 @@
       return false;
     }
 
+    public function getNome() {
+      return $this->nome;
+    }
+
     public function getPermissions() {
       return $this->permissions;
     }

@@ -10,7 +10,7 @@ let formmated = '';
 setInterval(() => {
   let data = new Date();
   let
-    day = data.getDay(),
+    day = data.getDate(),
     month = data.getMonth(),
     year = data.getFullYear(),
     h = data.getHours(),
@@ -25,7 +25,7 @@ setInterval(() => {
     welcome = 'Boa noite';
   }
 
-  formmated = `${day + 1} de ${months[month]} de ${year}`
+  formmated = `${day} de ${months[month]} de ${year}`
 
   if (welcomePhrase.innerText !== welcome) 
     welcomePhrase.innerText = welcome;

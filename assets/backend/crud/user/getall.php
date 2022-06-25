@@ -4,10 +4,10 @@
   header('Access-Control-Allow-Credentials: true');
 
   require '../../DataBase.php';
-  require '../../Token.php';
+  require '../../Authenticate.php';
 
-  if (!isset($_COOKIE['hp_pages_auth']) || !Token::isValid($_COOKIE['hp_pages_auth'])) 
-    return print(json_encode([ "error" => "Não autorizado" ]));
+  if (!authenticate())
+    return print(json_encode([ 'error' => 'Você não está autorizado.' ]));
 
   $db = DataBase::getInstance();
   $sql = 'SELECT u.id, u.nome, u.ultimo_login, u.ultimo_ip, c.id AS `cargo_id`, c.nome AS `cargo` 

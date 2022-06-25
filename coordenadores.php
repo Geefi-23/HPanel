@@ -1,7 +1,8 @@
 <?php
-  require './assets/backend/Token.php';
-  if (!isset($_COOKIE['hp_pages_auth']) || !Token::isValid($_COOKIE['hp_pages_auth']))
-    header('Location: /painel/login');
+  require 'assets/backend/Authenticate.php';
+
+  if (!authenticate()) 
+	  header('Location: /painel/login');
 ?>
 
 <!DOCTYPE html>
@@ -32,11 +33,14 @@
       </a>
       <a href="coordenadores/cargos" class="functional-card">
         <h4>Gerenciar cargos</h4>
-        <p>Destinado ao gerenciamento de cargos e permissões.</p>
+        <p>Destinado ao gerenciamento de cargos.</p>
+      </a>
+      <a href="coordenadores/permissoes" class="functional-card">
+        <h4>Gerenciar permissões</h4>
+        <p>Destinado ao gerenciamento de permissões.</p>
       </a>
     </div>
   </main>
-  <script src="assets/js/team_members.js" type="module"></script>
 </body>
 
 </html>

@@ -4,12 +4,12 @@
   header('Access-Control-Allow-Credentials: true');
 
   require '../../DataBase.php';
-  require '../../Token.php';
   require '../../utils/Permissions.php';
   require '../../entities/User.php';
+  require '../../Authenticate.php';
 
-  if (!isset($_COOKIE['hp_pages_auth']) || !Token::isValid($_COOKIE['hp_pages_auth']))
-    return print(json_encode([ 'erro' => 'Token de autenticação inválido!']));
+  if (!authenticate())
+    return print(json_encode([ 'error' => 'Você não está autorizado.' ]));
 
   $db = DataBase::getInstance();
 

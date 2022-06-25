@@ -1,8 +1,10 @@
 <?php
-  require './assets/backend/Token.php';
-  if (isset($_COOKIE['hp_pages_auth']) && Token::isValid($_COOKIE['hp_pages_auth'])) 
-    header('Location: /painel/');
+  require 'assets/backend/Authenticate.php';
+
+  if (authenticate()) 
+	  header('Location: /painel/');
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>

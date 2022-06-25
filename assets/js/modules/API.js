@@ -1,4 +1,4 @@
-const EXTERNAL_URL = 'https://localhost/api/';
+const EXTERNAL_URL = '/api/';
 const URL = '/painel/assets/backend/crud/';
 
 const ROUTE_USERS = 'user/';
@@ -6,6 +6,7 @@ const ROUTE_NEWS = 'news/';
 const ROUTE_BUYABLE = 'buyable/';
 const ROUTE_CARGOS = 'cargos/';
 const ROUTE_PERMISSIONS = 'permissoes/';
+const ROUTE_RADIO_HORARIOS = 'radio_horarios/';
 
 const API = () => {
   return {
@@ -46,6 +47,19 @@ const API = () => {
     },
     permission: async (action, queryparams = {}, init = {}) => {
       let url = URL+ROUTE_PERMISSIONS+action+`.php${Object.entries(queryparams).length !== 0 ? '?':''}`;
+    
+      if (Object.entries(queryparams).length !== 0) {
+        for (let param in queryparams) {
+          url += `${param}=${queryparams[param]}&`;
+        }
+        url = url.substring(0, url.length - 1);
+      } 
+
+      let res = await (await fetch(url, init)).json();
+      return res;
+    },
+    radioHorarios: async (action, queryparams = {}, init = {}) => {
+      let url = URL+ROUTE_RADIO_HORARIOS+action+`.php${Object.entries(queryparams).length !== 0 ? '?':''}`;
     
       if (Object.entries(queryparams).length !== 0) {
         for (let param in queryparams) {

@@ -5,10 +5,10 @@
 
   require '../../HabbletDataBase.php';
   require '../../DataBase.php';
-  require '../../Token.php';
+  require '../../Authenticate.php';
 
-  if (!isset($_COOKIE['hp_pages_auth']) || !Token::isValid($_COOKIE['hp_pages_auth']))
-    return print(json_encode([ 'erro' => 'Token de autenticação inválido!']));
+  if (!authenticate())
+    return print(json_encode([ 'error' => 'Você não está autorizado.' ]));
 
   $data = json_decode(file_get_contents('php://input'));
 
