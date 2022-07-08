@@ -34,11 +34,26 @@ CREATE TABLE IF NOT EXISTS hp_cargos_permissions(
 
 CREATE TABLE IF NOT EXISTS hp_radio_horarios(
   id int auto_increment primary key not null,
-  usuario varchar(255) not null default '',
   comeca time not null,
-  termina time not null,
+  termina time not null
+);
+
+CREATE TABLE IF NOT EXISTS hp_radio_horarios_marcados(
+  id int auto_increment primary key not null,
+  usuario varchar(255) not null default '',
+  horario int not null,
   dia date not null default '0000-00-00'
 );
+
+CREATE TABLE IF NOT EXISTS hp_compras(
+  id int auto_increment primary key not null,
+  id_compravel int not null,
+  nome_compravel varchar(255) not null,
+  codigo varchar(255) not null,
+  discord_usuario varchar(255) not null
+);
+
+ALTER TABLE hp_radio_horarios_marcados ADD CONSTRAINT fk_horario FOREIGN KEY(horario) REFERENCES hp_radio_horarios(id);
 
 ALTER TABLE hp_users ADD CONSTRAINT fk_cargo FOREIGN KEY(cargo) REFERENCES hp_cargos(id);
 
@@ -56,11 +71,14 @@ INSERT INTO hp_cargos VALUES (null, 'LOCUTOR');
 INSERT INTO hp_cargos VALUES (null, 'SONOPLASTA');
 
 INSERT INTO hp_permissions VALUES(null, 'GERENCIAR NOTICIAS'),(null, 'GERENCIAR MEMBROS'),(null, 'GERENCIAR CARGOS'),(null, 'GERENCIAR PERMISSOES'),
-(null, 'GERENCIAR EVENTOS'), (null, 'MARCAR HORARIOS'),(null, 'GERENCIAR HORARIOS');
+(null, 'GERENCIAR EVENTOS'), (null, 'MARCAR HORARIOS'),(null, 'GERENCIAR HORARIOS'),(null, 'GERENCIAR COMPRAVEIS'),(null, 'GERENCIAR VALORES'),(null, 'GERENCIAR HABBLETXD HOME');
 
-INSERT INTO hp_cargos_permissions VALUES(null, 1, 1), (null, 1, 2),(null, 1, 3),(null, 1, 4),(null, 1, 5),(null, 1, 6),(null, 1, 7),(null, 9, 6),(null, 9, 7);
+INSERT INTO hp_cargos_permissions VALUES(null, 1, 1), (null, 1, 2),(null, 1, 3),(null, 1, 4),(null, 1, 5),(null, 1, 6),(null, 1, 7),(null, 1, 8),(null, 9, 6),(null, 9, 7),
+(null, 1, 9),(null, 1, 10);
 
 INSERT INTO hp_radio_horarios(comeca, termina) VALUES('00:00', '01:00'),('01:00', '02:00'),('02:00', '03:00'),('03:00', '04:00'),
 ('04:00', '05:00'),('05:00', '06:00'),('06:00', '07:00'),('07:00', '08:00'),('08:00', '09:00'),('09:00', '10:00'),('10:00', '11:00'),
 ('11:00', '12:00'),('12:00', '13:00'),('13:00', '14:00'),('14:00', '15:00'),('15:00', '16:00'),('16:00', '17:00'),('17:00', '18:00'),
 ('18:00', '19:00'),('19:00', '20:00'),('20:00', '21:00'),('21:00', '22:00'),('22:00', '23:00'),('23:00', '00:00');
+
+INSERT INTO hp_radio_horarios_marcados(usuario, horario, dia) VALUES('Geefi', 5, '2022-07-01');

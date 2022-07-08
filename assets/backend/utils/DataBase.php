@@ -1,4 +1,5 @@
 <?php
+namespace Utils;
 
 class DataBase{
   // CONFIGURAÇÃO DO SEU BANCO DE DADOS
@@ -11,8 +12,8 @@ class DataBase{
   private function __construct(){}
   
   public static function getInstance() {
-    $db = new PDO("mysql:host=".self::$hostname.":".self::$port.";dbname=".self::$dbname, self::$username, self::$password);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $db = new \PDO("mysql:host=".self::$hostname.":".self::$port.";dbname=".self::$dbname, self::$username, self::$password);
+    $db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     return $db;
   }
 }

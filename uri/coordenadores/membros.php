@@ -1,7 +1,10 @@
 <?php
-  require '../../assets/backend/Authenticate.php';
+  require '../../vendor/autoload.php';
 
-  if (!authenticate()) 
+  use Utils\Authenticate;
+  use Utils\DataBase;
+
+  if (!Authenticate::authenticate()) 
 	  header('Location: /painel/login');
 ?>
 
@@ -12,10 +15,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/painel/assets/css/colors.css">
   <link rel="stylesheet" href="/painel/assets/css/reset.css">
   <link rel="stylesheet" href="/painel/assets/css/sidebar.css">
   <link rel="stylesheet" href="/painel/assets/css/bootstrap.css">
@@ -30,7 +33,6 @@
   <?php 
   require '../../assets/components/sidebar.php'; 
   require '../../assets/components/loader.php'; 
-  require '../../assets/backend/DataBase.php';
 
   $db = DataBase::getInstance();
 
@@ -41,54 +43,72 @@
   $cargos = $query->fetchAll(PDO::FETCH_ASSOC);
   ?>
   <div class="notifications"></div>
-  <main class="p-5">
-    <div class="container">
-      <div id="modal-adicionarmembro" class="hp-modal">
-        <form name="addMember" class="post-form bg-white p-3 rounded">
-          <input name="nome" placeholder="Nome" autocomplete="off"/>
-          <h4>Adicionar membro</h4>
-          <input name="senha" type="password" placeholder="Senha" autocomplete="off"/>
-          <select name="cargo" class="border rounded">
-            <?php foreach ($cargos as $cargo): ?>
-              <option value="<?php echo $cargo['id'] ?>"><?php echo $cargo['nome'] ?></option>
-            <?php endforeach; ?>
-          </select>
-          <div class="d-flex justify-content-between">
-            <a href="#" role="button" class="btn btn-danger">Cancelar</a>
-            <button type="submit" class="btn btn-primary">Salvar</button>
+  <div style="flex: 1">
+    <?php require '../../assets/components/header.php' ?>
+    <main class="p-5">
+      <div class="container">
+        <h4>Membros</h4>
+        <div id="modal-confirmdelete" class="hp-modal">
+          <div class="bg-white p-3 rounded">
+            <h5>Tem certeza de que deseja deletar este usuário?</h5>
+            <div class="d-flex justify-content-between">
+              <a href="#" class="hp-btn-danger" role="button">Cancelar</a>
+              <button id="delete-user-btn" class="hp-btn-primary">Deletar usuário</button>
+            </div>
           </div>
-        </form>
+        </div>
+        <div id="modal-adicionarmembro" class="hp-modal">
+          <form name="addMember" class="post-form bg-white p-3 rounded">
+            <h4>Adicionar membro</h4>
+            <label>
+              <small class="d-block">Letras de A-Z e a-z, números de 0-9 e underlines (_).</small>
+              <input name="nome" class="w-100" placeholder="Nome" autocomplete="off" pattern="[A-Za-z0-9_]*" />
+            </label>
+            <input name="senha" type="password" placeholder="Senha" autocomplete="off" />
+            <select name="cargo" class="border rounded">
+              <?php foreach ($cargos as $cargo): ?>
+                <option value="<?php echo $cargo['id'] ?>"><?php echo $cargo['nome'] ?></option>
+              <?php endforeach; ?>
+            </select>
+            <div class="d-flex justify-content-between">
+              <a href="#" role="button" class="hp-btn-danger">Cancelar</a>
+              <button type="submit" class="hp-btn-primary">Salvar</button>
+            </div>
+          </form>
+        </div>
+        <a href="#modal-adicionarmembro" class="btn b-0" style="background-color: #054468; color: white" role="button">
+          <i class="fas fa-plus me-1"></i>
+          Adicionar membro
+        </a>
+        <div id="modal-editarmembro" class="hp-modal">
+          <form name="editMember" class="post-form bg-white p-3 rounded">
+            <h4>Editar membro</h4>
+            <input name="nome" placeholder="Nome" autocomplete="off" pattern="[A-Za-z0-9_]*"/>
+            <select name="cargo" class="border rounded">
+              <?php foreach ($cargos as $cargo): ?>
+                <option value="<?php echo $cargo['id'] ?>"><?php echo $cargo['nome'] ?></option>
+              <?php endforeach; ?>
+            </select>
+            <div class="d-flex justify-content-between">
+              <a href="#" role="button" class="hp-btn-danger">Cancelar</a>
+              <button type="submit" class="hp-btn-primary">Salvar</button>
+            </div>
+          </form>
+        </div>
+        <table class="table table-hover border mt-1" id="members-table">
+          <tr>
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Ultimo login</th>
+            <th>Ultimo ip</th>
+            <th>Cargo</th>
+          </tr>
+        </table>
       </div>
-      <a href="#modal-adicionarmembro" class="btn b-0" style="background-color: #054468; color: white" role="button">
-        <i class="fas fa-plus me-1"></i>
-        Adicionar membro
-      </a>
-      <div id="modal-editarmembro" class="hp-modal">
-        <form name="editMember" class="post-form bg-white p-3 rounded">
-          <h4>Editar membro</h4>
-          <input name="nome" placeholder="Nome" autocomplete="off"/>
-          <select name="cargo" class="border rounded">
-            <?php foreach ($cargos as $cargo): ?>
-              <option value="<?php echo $cargo['id'] ?>"><?php echo $cargo['nome'] ?></option>
-            <?php endforeach; ?>
-          </select>
-          <div class="d-flex justify-content-between">
-            <a href="#" role="button" class="btn btn-danger">Cancelar</a>
-            <button type="submit" class="btn btn-primary">Salvar</button>
-          </div>
-        </form>
-      </div>
-      <table class="table table-hover border mt-1" id="members-table">
-        <tr>
-          <th>ID</th>
-          <th>Usuario</th>
-          <th>Ultimo login</th>
-          <th>Ultimo ip</th>
-          <th>Cargo</th>
-        </tr>
-      </table>
-    </div>
-  </main>
+    </main>
+  </div>
+  
+  <script src="https://kit.fontawesome.com/83b300201b.js" crossorigin="anonymous"></script>
   <script src="/painel/assets/js/coordenadores/gerenciar.js" type="module"></script>
 </body>
 </html>

@@ -3,11 +3,14 @@ import notif from '../modules/notifications.js';
 import loader from '../modules/Loader.js';
 
 let memberBeignEdited = null;
+let memberBeignDeleted = null;
+let rowBeignDeleted = null;
 
 const loadTable = async () => {
   const table = document.querySelector('#members-table');
   const addMemberForm = document.forms.addMember;
   const editMemberForm = document.forms.editMember;
+  const deleteUserConfirmBtn = document.querySelector('#delete-user-btn');
   const members = await api.user('getall');
 
   const loadEditForm = (data) => {
@@ -31,7 +34,7 @@ const loadTable = async () => {
   
   members.forEach(member => {
     let row = document.createElement('tr');
-    let deletebtn = document.createElement('button');
+    let deletebtn = document.createElement('a');
     let editbtn = document.createElement('a');
 
     let formmatedLastLogin = new Date(member.ultimo_login*1000);
@@ -68,6 +71,12 @@ const loadTable = async () => {
     deletebtn.insertAdjacentHTML('beforeend', '<i class="fas fa-trash-alt"></i>');
     editbtn.insertAdjacentHTML('beforeend', '<i class="fas fa-pencil-alt"></i>');
     deletebtn.className = 'btn p-0';
+    deletebtn.href = "#modal-confirmdelete";
+    deletebtn.onclick = () => {
+      memberBeignDeleted = member;
+      rowBeignDeleted = row;
+    };
+
     editbtn.className = 'btn p-0';
     editbtn.ariaRoleDescription = 'button';
     editbtn.href = '#modal-editarmembro';
@@ -77,17 +86,13 @@ const loadTable = async () => {
 
     const colbtn1 = document.createElement('td');
     const colbtn2 = document.createElement('td');
-    if (member.cargo_id !== "1"){
-      colbtn1.append(editbtn);
-      colbtn2.append(deletebtn);
-    }
+    colbtn1.append(editbtn);
+    colbtn2.append(deletebtn);
+    
     
     colList.push(colbtn1, colbtn2);
     
     row.append(...colList);
-    deletebtn.onclick = () => {
-      handleRowDelete(member.id, row);
-    };
     table.querySelector('tbody').append(row);
 
 
@@ -96,11 +101,23 @@ const loadTable = async () => {
   addMemberForm.onsubmit = async evt => {
     evt.preventDefault();
 
+    const regex = {
+      nome: /[A-Za-z0-9_]+/g,
+      senha: /.{6,18}/g,
+      cargo: /.*/g
+    };
+
     const data = {
       nome: addMemberForm.nome.value,
       senha: addMemberForm.senha.value,
       cargo: addMemberForm.cargo.value
     };
+
+    for (let key in data) {
+      if (!regex[key].test(data[key])) {
+        return notif.dispatch('danger', 'Erro', `O campo '${key}' não foi preenchido corretamente.`);
+      }
+    }
 
     const init = {
       method: 'POST',
@@ -145,6 +162,10 @@ const loadTable = async () => {
     } else {
       notif.dispatch('danger', 'Erro', res.error);
     }
+  };
+
+  deleteUserConfirmBtn.onclick = () => {
+    handleRowDelete(memberBeignDeleted.id, rowBeignDeleted);
   };
 };
 

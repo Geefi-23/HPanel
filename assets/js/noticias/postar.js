@@ -1,6 +1,6 @@
-import loader from './modules/Loader.js';
-import notif from './modules/notifications.js';
-import api from './modules/API.js';
+import loader from '../modules/Loader.js';
+import notif from '../modules/notifications.js';
+import api from '../modules/API.js';
 
 CKEDITOR.replace('noticiaWriter');
 
@@ -22,6 +22,7 @@ formNoticia.onsubmit = async (evt) => {
   const data = {
     titulo: formNoticia.titulo.value,
     resumo: formNoticia.resumo.value,
+    evento: formNoticia.evento.value,
     categoria: formNoticia.categoria.value,
     texto: CKEDITOR.instances.noticiaWriter.getData()
   };
@@ -49,5 +50,9 @@ formNoticia.onsubmit = async (evt) => {
 
   if (res.error)
     return notif.dispatch('danger', 'Erro', res.error);
-  else notif.dispatch('success', 'Sucesso', res.success);
+  else {
+    notif.dispatch('success', 'Sucesso', res.success);
+    formNoticia.reset();
+    CKEDITOR.instances.noticiaWriter.setData('', function() { this.updateElement()});
+  }
 };

@@ -1,9 +1,12 @@
 <?php
-  require '../../assets/backend/Authenticate.php';
+  require '../../vendor/autoload.php';
 
-  if (!authenticate()) 
+  use Utils\Authenticate;
+
+  if (!Authenticate::authenticate()) 
 	  header('Location: /painel/login');
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -20,55 +23,17 @@
   <link rel="stylesheet" href="/painel/assets/css/sidebar.css">
   <link rel="stylesheet" href="/painel/assets/css/manage-news.css">
 
-  <title>Postar noticia</title>
+  <title>HPainel | Gerenciar notícias</title>
 </head>
 <body>
+  <div class="notifications"></div>
   <?php
     require '../../assets/components/sidebar.php';
+    require '../../assets/components/loader.php';
   ?>
   <main class="d-flex gap-3 flex-column p-3" id="noticias"></main>
 
-  <script type="module">
-    import API from '/painel/assets/js/modules/API.js';
-
-    async function pool() {
-      let res = await API.news('getall');
-
-      let tabela = document.querySelector('#noticias');
-
-      res.success.forEach((el) => {
-        let card = document.createElement('a');
-        let img = document.createElement('div');
-        let resume = document.createElement('div');
-        let strong = document.createElement('strong');
-        let span = document.createElement('span');
-        let small = document.createElement('small');
-
-        let image = (async() => {
-          let res = await (await fetch(`/api/media/images/${el.imagem}`)).json();
-          console.log(res);
-        })();
-
-        strong.append(el.titulo);
-        span.insertAdjacentHTML('beforeend', el.resumo);
-        small.append(el.criador);
-
-        card.className = 'news-card';
-        img.className = 'news-card__img';
-        resume.className = 'news-card__resume';
-
-        resume.append(strong, span, small);
-
-        card.append(img, resume);
-        card.href = '/painel/noticias/gerenciando/'+el.url;
-        tabela.append(card);
-      });
-      
-    }
-
-    pool()
-
-    
-  </script>
+  <script src="https://kit.fontawesome.com/83b300201b.js" crossorigin="anonymous"></script>
+  <script src="/painel/assets/js/noticias/gerenciar.js" type="module"></script>
 </body>
 </html>

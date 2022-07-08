@@ -1,26 +1,23 @@
 <?php
-  require '../../Authenticate.php';
-  require '../../DataBase.php';
-  require '../../utils/Permissions.php';
-  require '../../entities/User.php';
+  header('Access-Control-Allow-Headers: Content-Type, Set-Cookie');
+  header('Access-Control-Allow-Origin: http://localhost/');
+  header('Access-Control-Allow-Credentials: true');
+  
+  require __DIR__ . '/../../../../vendor/autoload.php';
 
-  if (!authenticate())
+  use Utils\Authenticate;
+  use Utils\DataBase;
+
+  if (!$user = Authenticate::authenticate())
     return print(json_encode([ 'error' => 'Você não está autorizado.' ]));
-
-  $db = DataBase::getInstance();
-
-  $requestAutorID = Token::decode($_COOKIE['hp_pages_auth'])[1]->sub;
-  $sql = "SELECT * FROM hp_users WHERE id = $requestAutorID";
-  $query = $db->prepare($sql);
-  $query->execute();
-  $requestAutor = $query->fetch(PDO::FETCH_ASSOC);
-  $user = new User($requestAutor);
 
   if (!$user->hasPermission(7))
     return print(json_encode([ 'error' => 'Você não tem permissão para realizar esta operação.' ]));
 
+  $db = DataBase::getInstance();
+
   $toResetID = $_GET['id'];
-  $sql = "UPDATE hp_radio_horarios SET usuario = '' WHERE id = $toResetID";
+  $sql = "DELETE FROM hp_radio_horarios_marcados WHERE id = $toResetID";
   $query = $db->prepare($sql);
   try {
     $query->execute();

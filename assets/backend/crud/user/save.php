@@ -2,30 +2,20 @@
   header('Access-Control-Allow-Origin: *');
   header('Access-Control-Allow-Header: Content-Type');
 
-  require '../../DataBase.php';
-  require '../../Token.php';
-  require '../../utils/Permissions.php';
-  require '../../entities/User.php';
-  require '../../Authenticate.php';
+  require '../../../../vendor/autoload.php';
 
-  if (!authenticate())
+  use Utils\Authenticate;
+  use Utils\DataBase;
+  use Utils\HabbletDataBase;
+
+  if (!$user = Authenticate::authenticate())
     return print(json_encode([ 'error' => 'Você não está autorizado.' ]));
-
-  $db = DataBase::getInstance();
-
-  $requestAutorId = Token::decode($_COOKIE['hp_pages_auth'])[1]->sub;
-
-  $sql = "SELECT * FROM hp_users WHERE id = ?";
-  $query = $db->prepare($sql);
-  $query->bindValue(1, $requestAutorId, PDO::PARAM_INT);
-  $query->execute();
-  $requestAutor = $query->fetch(PDO::FETCH_ASSOC);
-
-  $user = new User($requestAutor);
 
   if (!$user->hasPermission(2)) {
     return print(json_encode([ 'error' => 'Você não tem permissão para realizar esta ação.' ]));
   }
+
+  $db = DataBase::getInstance();
 
   $data = json_decode(file_get_contents('php://input'));
 
@@ -36,6 +26,8 @@
 
   if ($nome == '' || $senha == '') {
     return print(json_encode([ 'error' => 'Algum dos campos está vazio.' ]));
+  } elseif (preg_match('%\s+%', $nome) || preg_match('%\s+%', $senha)) {
+    return print(json_encode([ 'error' => 'Caractére inválido.' ]));
   }
 
   $sql = "SELECT * FROM hp_users WHERE nome = :nome";

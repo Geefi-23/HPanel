@@ -1,4 +1,5 @@
-.dashboard{
+@import url('./colors.css');
+.dashboard {
   display: grid;
   grid-template-columns: auto auto auto;
   grid-template-rows: 1fr 1fr;
@@ -6,4 +7,90 @@
   justify-items: center;
   gap: 1rem;
   transform: translateY(2rem);
+}
+
+.badge-soon::after {
+  content: "Em breve";
+  position: absolute;
+  top: .75rem;
+  right: -.5rem;
+  background-color: #35a0e7;
+  padding-left: .25rem;
+  padding-right: .25rem;
+  border: 1px solid var(--hp-color-blue-dark);
+  border-radius: 50rem;
+  font-size: .775rem;
+}
+
+.switch-btn{
+  display: inline-flex;
+  align-items: center;
+  background-color: #dee2e6;
+  width: 30px;
+  border-radius: 10px;
+  border: 1px solid #a1a1a1;
+  transition: all ease-in-out .3s;
+}
+
+.switch-btn.active{
+  background-color: #009aff;
+  width: 30px;
+  border-radius: 10px;
+  border: 1px solid #afdfff;
+}
+
+.switch-btn::after {
+  content: "";
+  display: block;
+  background-color: #a1a1a1;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  transition: all ease-in-out .3s;
+}
+
+.switch-btn.active::after{
+  background-color: #afdfff;
+  transform: translateX(100%);
+}
+
+.hp-btn-primary, .hp-btn-danger{
+  
+  color: #fff;
+  min-width: 125px;
+  padding: .5rem;
+  border: none;
+  border-radius: 50rem;
+  transition: all .15s ease-out;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+}
+
+.hp-btn-primary{
+  background-color: var(--hp-color-blue);
+}
+
+.hp-btn-danger{
+  background-color: var(--hp-color-red);
+}
+
+.hp-btn-primary:hover {
+  box-shadow: 0 0 1rem var(--hp-color-blue);
+  text-shadow: 0 0 1rem #fff;
+  color: #fff;
+}
+
+.hp-btn-danger:hover {
+  box-shadow: 0 0 1rem var(--hp-color-red);
+  text-shadow: 0 0 1rem #fff;
+  color: #fff;
+}
+
+.hp-btn-primary:disabled, .hp-btn-danger:disabled, 
+.hp-btn-primary:disabled:hover, .hp-btn-danger:disabled:hover {
+  box-shadow: none;
+  text-shadow: none;
+  cursor: auto;
+  opacity: .5;
 }

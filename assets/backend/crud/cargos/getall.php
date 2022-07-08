@@ -1,6 +1,8 @@
 <?php
   
-  require '../../DataBase.php';
+  require __DIR__ . '/../../../../vendor/autoload.php';
+
+  use Utils\DataBase;
 
   $db = DataBase::getInstance();
 

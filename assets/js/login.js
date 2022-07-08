@@ -53,9 +53,11 @@ form.onsubmit = async (evt) => {
     },
     credentials: 'include'
   };
+
   loader.show();
-  let res = await api.user('get', {}, init);
+  let res = await api.user('login', {}, init);
   loader.hide();
+  
   if (res.error) return notif.dispatch('danger', 'Erro', res.error);
   localStorage.setItem('hp_user', JSON.stringify(res.user));
   window.location.href = '/painel/';

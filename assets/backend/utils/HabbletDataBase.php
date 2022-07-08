@@ -1,4 +1,6 @@
 <?php
+namespace Utils;
+
 class HabbletDataBase{
   // CONFIGURAÇÃO DO SEU BANCO DE DADOS
   private static $username = 'geefi';
@@ -10,8 +12,8 @@ class HabbletDataBase{
   private function __construct(){}
   
   public static function getInstance() {
-    $db = new PDO("mysql:host=".self::$hostname.":".self::$port.";dbname=".self::$dbname, self::$username, self::$password);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $db = new \PDO("mysql:host=".self::$hostname.":".self::$port.";dbname=".self::$dbname, self::$username, self::$password);
+    $db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     return $db;
   }
 }

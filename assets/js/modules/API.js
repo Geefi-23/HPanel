@@ -7,9 +7,25 @@ const ROUTE_BUYABLE = 'buyable/';
 const ROUTE_CARGOS = 'cargos/';
 const ROUTE_PERMISSIONS = 'permissoes/';
 const ROUTE_RADIO_HORARIOS = 'radio_horarios/';
+const ROUTE_VALUES = 'values/';
+const ROUTE_PURCHASES = 'compras/';
 
 const API = () => {
   return {
+    hbtUsers: async (action, queryparams = {}, init = {}) => {
+      let url = EXTERNAL_URL+ROUTE_USERS+action+`.php${Object.entries(queryparams).length !== 0 ? '?':''}`;
+    
+      if (Object.entries(queryparams).length !== 0) {
+        for (let param in queryparams) {
+          url += `${param}=${queryparams[param]}&`;
+        }
+        url = url.substring(0, url.length - 1);
+      } 
+
+      let res = await (await fetch(url, init)).json();
+      return res;
+    },
+
     user: async (action, queryparams = {}, init = {}) => {
       let url = URL+ROUTE_USERS+action+`.php${Object.entries(queryparams).length !== 0 ? '?':''}`;
     
@@ -70,7 +86,33 @@ const API = () => {
 
       let res = await (await fetch(url, init)).json();
       return res;
-    }
+    },
+    values: async (action, queryparams = {}, init = {}) => {
+      let url = EXTERNAL_URL+ROUTE_VALUES+action+`.php${Object.entries(queryparams).length !== 0 ? '?':''}`;
+    
+      if (Object.entries(queryparams).length !== 0) {
+        for (let param in queryparams) {
+          url += `${param}=${queryparams[param]}&`;
+        }
+        url = url.substring(0, url.length - 1);
+      } 
+
+      let res = await (await fetch(url, init)).json();
+      return res;
+    },
+    compras: async (action, queryparams = {}, init = {}) => {
+      let url = URL+ROUTE_PURCHASES+action+`.php${Object.entries(queryparams).length !== 0 ? '?':''}`;
+    
+      if (Object.entries(queryparams).length !== 0) {
+        for (let param in queryparams) {
+          url += `${param}=${queryparams[param]}&`;
+        }
+        url = url.substring(0, url.length - 1);
+      } 
+
+      let res = await (await fetch(url, init)).json();
+      return res;
+    },
   };
 };
 

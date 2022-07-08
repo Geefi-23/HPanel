@@ -1,3 +1,12 @@
+<?php
+  require '../../vendor/autoload.php';
+
+  use Utils\Authenticate;
+
+  if (!Authenticate::authenticate()) 
+	  header('Location: /painel/login');
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -25,18 +34,26 @@
     require '../../assets/components/loader.php';
     require '../../assets/components/sidebar.php';
   ?>
+  <div style="flex: 1">
+    <?php require '../../assets/components/header.php' ?>
+    <main class="p-5">
+      <div class="container">
+        <label>
+          <span>Data: </span>
+          <select id="data" class="border p-1 px-3 rounded"></select>
+        </label>
+        <table id="table-horarios" class="table table-hover border mt-2">
+          <th>ID</th>
+          <th>Começa</th>
+          <th>Termina</th>
+          <th>Locutor</th>
+          <th></th>
+        </table>
+      </div>
+    </main>
+  </div>
 
-  <main class="p-5">
-    <div class="container">
-      <table id="table-horarios" class="table table-hover border">
-        <th>ID</th>
-        <th>Começa</th>
-        <th>Termina</th>
-        <th>Locutor</th>
-        <th></th>
-      </table>
-    </div>
-  </main>
+  <script src="https://kit.fontawesome.com/83b300201b.js" crossorigin="anonymous"></script>
   <script src="/painel/assets/js/radio/horarios.js" type="module"></script>
 </body>
 </html>

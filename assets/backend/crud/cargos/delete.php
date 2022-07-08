@@ -3,29 +3,19 @@
   header('Access-Control-Allow-Origin: https://localhost');
   header('Access-Control-Allow-Credentials: true');
 
-  require '../../DataBase.php';
-  require '../../utils/Permissions.php';
-  require '../../entities/User.php';
-    require '../../Authenticate.php';
+  require __DIR__ . '/../../../../vendor/autoload.php';
 
-  if (!authenticate())
+  use Utils\DataBase;
+  use Utils\Authenticate;
+
+  if (!$user = Authenticate::authenticate())
     return print(json_encode([ 'error' => 'Você não está autorizado.' ]));
-
-  $db = DataBase::getInstance();
-
-  $requestAutorId = Token::decode($_COOKIE['hp_pages_auth'])[1]->sub;
-
-  $sql = "SELECT * FROM hp_users WHERE id = ?";
-  $query = $db->prepare($sql);
-  $query->bindValue(1, $requestAutorId, PDO::PARAM_INT);
-  $query->execute();
-  $requestAutor = $query->fetch();
-
-  $user = new User($requestAutor);
 
   if (!$user->hasPermission(3)) {
     return print(json_encode([ 'error' => 'Você não tem autorização para realizar esta ação.', 'perms' => $user->getPermissions() ]));
   }
+
+  $db = DataBase::getInstance();
 
   $id = $_GET['id'];
 

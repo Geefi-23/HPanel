@@ -1,4 +1,6 @@
 <?php
+  namespace Utils;
+  
   class Token{
     private const secretkey = 'T1RFNVZUaEVTa';
 

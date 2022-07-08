@@ -32,6 +32,11 @@
       "icon" => 'fas fa-receipt'
     ],
     [
+      "type" => "HabbletXD Home",
+      "href" => $base_uri."/habbletxd-home",
+      ""
+    ],
+    [
       "type" => "Desenvolvedor",
       "href" => $base_uri."/dev",
       "icon" => 'fas fa-cog'
@@ -41,6 +46,7 @@
       "href" => $base_uri."/assets/backend/crud/user/logout.php",
       "icon" => 'fas fa-sign-out-alt'
     ]
+    
   ];
 ?>
 <div id="sidebar">

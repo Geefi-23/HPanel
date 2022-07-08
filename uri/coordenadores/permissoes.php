@@ -1,7 +1,9 @@
 <?php
-  require '../../assets/backend/Authenticate.php';
+  require '../../vendor/autoload.php';
 
-  if (!authenticate()) 
+  use Utils\Authenticate;
+
+  if (!Authenticate::authenticate()) 
 	  header('Location: /painel/login');
 ?>
 
@@ -37,5 +39,6 @@
       
     </div>
   </main>
+  <script src="https://kit.fontawesome.com/83b300201b.js" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -44,5 +44,8 @@ compraveisForm.onsubmit = async evt => {
 
   if (res.success) {
     notif.dispatch('success', 'Sucesso', res.success);
+    compraveisForm.reset();
+  } else {
+    notif.dispatch('danger', 'Erro', res.error);
   }
 };

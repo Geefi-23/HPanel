@@ -41,11 +41,15 @@
 
 .section-card__see-more-btn{
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: #fff;
   height: 40px;
   width: 100%;
   border: none;
   bottom: 0;
+  text-decoration: none;
   transition: background-color ease-in .15s;
 }
 

@@ -1,4 +1,5 @@
 <?php
+  namespace Utils;
   abstract class Permissions{
     protected function __construct(){}
 

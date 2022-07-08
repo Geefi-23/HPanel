@@ -1,8 +1,10 @@
 <?php
-  require 'assets/backend/Authenticate.php';
+  require __DIR__ . '/vendor/autoload.php';
+  
+  use Utils\Authenticate;
 
-  if (!authenticate()) 
-	header('Location: /painel/login');
+  if (!Authenticate::authenticate()) 
+	  header('Location: /painel/login');
 ?>
 
 <!DOCTYPE html>

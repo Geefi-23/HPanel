@@ -1,3 +1,12 @@
+<?php
+  require '../../vendor/autoload.php';
+
+  use Utils\Authenticate;
+
+  if (!Authenticate::authenticate()) 
+	  header('Location: /painel/login');
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -32,6 +41,8 @@
       </form>
     </div>
   </main>
+
+  <script src="https://kit.fontawesome.com/83b300201b.js" crossorigin="anonymous"></script>
   <script src="/painel/assets/js/radio/marcar_horario.js" type="module"></script>
 </body>
 </html>

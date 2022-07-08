@@ -1,3 +1,15 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #094c73;
+  height: 60px;
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  box-shadow: 0 .25rem .25rem rgb(0, 0, 0, .2);
+}
+
 #sidebar{
   background: #054468;
   position: sticky;
@@ -48,17 +60,17 @@
   border-bottom-left-radius: 1rem;
   text-decoration: none;
   padding-left: 2rem;
-  transition: background-color ease-in .1s;
+  transition: background-color ease-out .15s;
 }
 
 .nav__menu .nav__link a:hover{
-  background-color: rgb(255, 255, 255, .8);
-  color: #054468;
+  background-color: #094b70;
+  color: #fff;
 }
 
 .nav__menu .nav__link a.active{
-  background-color: #eef5ff;
-  color: #054468;
+  background-color: #12567c;
+  color: #fff;
 }
 
 @media screen and (max-width: 1366px){

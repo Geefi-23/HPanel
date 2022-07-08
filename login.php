@@ -1,7 +1,9 @@
 <?php
-  require 'assets/backend/Authenticate.php';
+  require __DIR__ . '/vendor/autoload.php';
+  
+  use Utils\Authenticate;
 
-  if (authenticate()) 
+  if (Authenticate::authenticate()) 
 	  header('Location: /painel/');
 ?>
 

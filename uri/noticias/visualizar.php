@@ -1,7 +1,10 @@
 <?php
-  require '../../assets/backend/Authenticate.php';
+  require '../../vendor/autoload.php';
 
-  if (!authenticate()) 
+  use Utils\Authenticate;
+  use Utils\HabbletDataBase;
+
+  if (!Authenticate::authenticate()) 
 	  header('Location: /painel/login');
 ?>
 
@@ -21,99 +24,103 @@
   <link rel="stylesheet" href="/painel/assets/css/sidebar.css">
   <link rel="stylesheet" href="/painel/assets/css/modal.css">
   <link rel="stylesheet" href="/painel/assets/css/notifications.css">
-  <!-- CSS only -->
-  <title>Gerenciando noticia</title>
+  <link rel="stylesheet" href="/painel/assets/css/loader.css">
+  <link rel="stylesheet" href="/painel/assets/css/bootstrap.css">
+  <link rel="stylesheet" href="/painel/assets/css/colors.css">
+  <link rel="stylesheet" href="/painel/assets/css/forms.css">
+  
+  <title>HPainel | Gerenciando noticia</title>
 </head>
 <body>
   <div class="notifications"></div>
   <?php
     require '../../assets/components/sidebar.php';
+    require '../../assets/components/loader.php';
   ?>
-  <main class="p-3">
-  <?php if (!isset($_GET['key'])): ?>
-    <h3>NOTICIA INVALIDA!</h3>
-  <?php else: ?>
-    <?php
-      require '../../assets/backend/HabbletDataBase.php';
-
-      $db = HabbletDataBase::getInstance();
-
-      $sql = 'SELECT * FROM noticias WHERE url = ?';
-      $query = $db->prepare($sql);
-      $query->bindValue(1, $_GET['key']);
-      $query->execute();
-      $news = $query->fetch(PDO::FETCH_ASSOC);
-      if (empty($news)):
-    ?>
-    <h3>Esta noticia não foi encontrada</h3>
+  <div style="flex: 1">
+    <?php require '../../assets/components/header.php' ?>
+    <main class="p-3">
+    <?php if (!isset($_GET['key'])): ?>
+      <h3>NOTICIA INVALIDA!</h3>
     <?php else: ?>
-    <form action="#" class="d-flex flex-column gap-3" name="noticia">
-      <label>
-        <small>Titulo:</small>
-        <input class="d-flex align-items-center p-2 border rounded w-50" 
-        style="min-height: 50px;" value="<?php echo $news['titulo'] ?>" name="titulo" />
-      </label>
-      <label>
-        <small>Autor:</small>
-        <input class="d-flex align-items-center p-2 border rounded w-50" 
-        style="min-height: 50px;" value="<?php echo $news['criador'] ?>" disabled />
-      </label>
-      <label>
-        <small>Resumo:</small>
-        <input class="d-flex align-items-center p-2 border rounded w-50" 
-        style="min-height: 50px;" value="<?php echo $news['resumo'] ?>" name="resumo" />
-      </label>
-      <label>
-        <small>Noticia:</small>
-        <div class="w-50">
-          <textarea id="noticiaEdit" name="texto">
-            <?php echo $news['texto'] ?>
-          </textarea>
-        </div>
-      </label>
-      <div class="d-flex align-items-center w-50 p-2 border rounded" style="min-height: 50px;">
-        Status: 
-        <label class="ms-3">
-          <span>Ativo</span>
-          <input type="radio" name="status" value="ativo"
-          <?php echo $news['status'] == 'ativo' ? 'checked' : '' ?> />
+      <?php
+
+        $db = HabbletDataBase::getInstance();
+
+        $sql = 'SELECT * FROM noticias WHERE url = ?';
+        $query = $db->prepare($sql);
+        $query->bindValue(1, $_GET['key']);
+        $query->execute();
+        $news = $query->fetch(\PDO::FETCH_ASSOC);
+        if (empty($news)):
+      ?>
+      <h3>Esta noticia não foi encontrada</h3>
+      <?php else: ?>
+      <form action="#" class="post-form d-flex flex-column gap-3" name="noticia">
+        <label>
+          <small>Titulo:</small>
+          <input style="min-height: 50px;" value="<?php echo $news['titulo'] ?>" name="titulo" />
         </label>
-        <label class="ms-3">
-          <span>Inativo</span>
-          <input type="radio" name="status" value="inativo"
-          <?php echo $news['status'] == 'inativo' ? 'checked' : '' ?> />
+        <label>
+          <small>Autor:</small>
+          <input style="min-height: 50px;" value="<?php echo $news['criador'] ?>" disabled />
         </label>
-      </div>
-      <div>
-        <a href="#modal-delete-confirmation" class="btn btn-danger">Excluir noticia</a>
-        <a href="#modal-alter-confirmation" class="btn btn-primary">Salvar alterações</a>
-      </div>
-      <div class="panel-modal-container" id="modal-alter-confirmation">
-        <div class="panel-modal" >
-          <div class="mb-3">Você tem certeza de que deseja alterar os dados desta noticia?</div>
-          <div class="d-flex justify-content-between">
-            <a href="#" class="btn btn-secondary">Cancelar</a>
-            <button type="submit" class="btn btn-primary">Salvar alterações</button>
+        <label>
+          <small>Resumo:</small>
+          <input style="min-height: 50px;" value="<?php echo $news['resumo'] ?>" name="resumo" />
+        </label>
+        <label>
+          <small>Noticia:</small>
+          <div>
+            <textarea id="noticiaEdit" name="texto">
+              <?php echo $news['texto'] ?>
+            </textarea>
+          </div>
+        </label>
+        <div class="d-flex align-items-center w-50 p-2 border rounded" style="min-height: 50px;">
+          Status: 
+          <input type="radio" name="status" value="ativo" style="display: none"
+          <?php echo $news['status'] === 'ativo' ? 'checked' : '' ?>/>
+          <input type="radio" name="status" value="inativo" style="display: none"
+          <?php echo $news['status'] === 'inativo' ? 'checked' : '' ?>/>
+          <div class="ms-2">
+            <button id="toggle-status-btn" class="switch-btn <?php echo $news['status'] === 'ativo' ? 'active' : '' ?>" type="button" ></button>
+            <span id="status-view" class="ms-2"><?php echo $news['status'] ?></span>
           </div>
         </div>
-      </div>
-      <div class="panel-modal-container" id="modal-delete-confirmation">
-        <div class="panel-modal" >
-          <div class="mb-3">Você tem certeza de que deseja excluir completamente esta noticia?</div>
-          <div class="d-flex justify-content-between">
-            <a href="#" class="btn btn-secondary">Cancelar</a>
-            <button id="delete-btn" class="btn btn-primary">Excluir</button>
+        <div>
+          <a href="#modal-delete-confirmation" class="hp-btn-danger" role="button">Excluir noticia</a>
+          <a href="#modal-alter-confirmation" class="hp-btn-primary" role="button">Salvar alterações</a>
+        </div>
+        <div class="panel-modal-container" id="modal-alter-confirmation">
+          <div class="panel-modal" >
+            <div class="mb-3">Você tem certeza de que deseja alterar os dados desta noticia?</div>
+            <div class="d-flex justify-content-between">
+              <a href="#" class="btn btn-secondary">Cancelar</a>
+              <button type="submit" class="hp-btn-primary">Salvar alterações</button>
+            </div>
           </div>
         </div>
-      </div>
-    </form>
+        <div class="panel-modal-container" id="modal-delete-confirmation">
+          <div class="panel-modal" >
+            <div class="mb-3">Você tem certeza de que deseja excluir completamente esta noticia?</div>
+            <div class="d-flex justify-content-between">
+              <a href="#" class="btn btn-secondary rounded-pill">Cancelar</a>
+              <button id="delete-btn" type="button" class="hp-btn-danger">Excluir</button>
+            </div>
+          </div>
+        </div>
+      </form>
+      <?php endif;?>
     <?php endif;?>
-  <?php endif;?>
-  </main>
+    </main>
+  </div>
+
+  <script src="https://kit.fontawesome.com/83b300201b.js" crossorigin="anonymous"></script>
   <script src="//cdn.ckeditor.com/4.18.0/full/ckeditor.js"></script>
   <script>
     let url = '<?php echo $_GET['key']?>';
   </script>
-  <script src="../../assets/js/news-manager-viewer.js" type="module"></script>
+  <script src="/painel/assets/js/noticias/visualizar.js" type="module"></script>
 </body>
 </html>

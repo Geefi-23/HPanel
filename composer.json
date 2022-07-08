@@ -1,0 +1,11 @@
+{
+    "name": "kuram/painel",
+    "description": "hpainel",
+    "autoload": {
+        "psr-4": {
+            "Utils\\": "assets/backend/utils/",
+            "Entities\\": "assets/backend/entities/"
+        }
+    },
+    "require": {}
+}

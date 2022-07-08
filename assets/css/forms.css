@@ -5,27 +5,30 @@
   gap: .75rem;
 }
 
+.post-form input, .post-form textarea{
+  background-color: #ededed;
+  width: 100%;
+  border: 1px solid #c7cace;
+  transition: all ease-in .15s;
+}
+
+.post-form input:focus, .post-form textarea:focus{
+  background-color: #fff;
+  box-shadow: 0 0 0 3px #d8e6fc;
+}
+
 .post-form input, .post-form select{
-  height: 40px;
-  
+  height: 45px;
 }
 
 .post-form input, .post-form textarea{
   padding: .5rem;
-  border: 1px solid #d1d1d1;
   border-radius: .25rem;
 }
 
 .post-form select{
   width: 100%;
   border: none;
-}
-
-.post-form .submit{
-  height: 40px;
-  width: 150px;
-  border: 1px solid #d1d1d1;
-  border-radius: .25rem;
 }
 
 .file-input-btn{
