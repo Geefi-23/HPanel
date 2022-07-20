@@ -5,7 +5,7 @@
 
   $db = DataBase::getInstance();
 
-  $sql = "SELECT id, nome_compravel AS `item`, discord_usuario AS `discord`, codigo FROM hp_compras";
+  $sql = "SELECT id, nome_compravel AS `item`, discord_usuario AS `discord`, codigo, resolvido FROM hp_compras";
   $query = $db->prepare($sql);
   $query->execute();
   $results = $query->fetchAll(PDO::FETCH_ASSOC);

@@ -42,9 +42,17 @@
           <h4>Gerenciar comentários</h4>
           <p>Área destinada ao gerenciamento geral de todos os comentarios em qualquer tópico ou post.</p>
         </a>
-        <a href="noticias/gerenciar" class="functional-card">
+        <a href="noticias/gerenciar?page=1" class="functional-card">
           <h4>Gerenciar notícias</h4>
           <p>Área destinada ao gerenciamento geral de todos as notícias da plataforma.</p>
+        </a>
+        <a href="noticias/postar-emblema-gratis" class="functional-card">
+          <h4>Postar emblema gratuito</h4>
+          <p>Área destinada para postagem de emblemas gratuitos.</p>
+        </a>
+        <a href="noticias/postar-emblema" class="functional-card">
+          <h4>Postar emblema</h4>
+          <p>Área destinada para postagem de emblemas.</p>
         </a>
       </div>
       

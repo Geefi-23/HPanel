@@ -44,7 +44,7 @@ formNoticia.onsubmit = async (evt) => {
 
   loader.show();
   noticiaSubmit.disabled = true;
-  let res = await api.news('save', init);
+  let res = await api.news('save', {}, init);
   loader.hide();
   noticiaSubmit.disabled = false;
 

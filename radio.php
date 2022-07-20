@@ -46,10 +46,10 @@
           <span><strong>Genre:</strong> Seu programa</span><br>
           <span><strong>WebSite URL:</strong> <a href="http://habbletxd.com.br/">http://habbletxd.com.br/</a></span><br>
         </div>
-        <div class="functional-card">
+        <a href="radio/pedidos" class="functional-card">
           <h4>Pedidos</h4>
           <span>Tabela de pedidos enviados ao locutor pelos seus ouvintes.</span>
-        </div>
+        </a>
         <div class="functional-card">
           <h4>Vinhetas</h4>
           <span>Vinhetas disponíveis para uso do locutor.</span>

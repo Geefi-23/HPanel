@@ -1,0 +1,23 @@
+#lista {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+}
+
+.buyable-card {
+  position: relative;
+  width: 100%;
+  border: 1px solid #dee2e6;
+  border-radius: .5rem;
+  padding: .5rem;
+  box-shadow: 0 .25rem .25rem rgb(0, 0, 0, .05);
+}
+
+.buyable-card-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: aliceblue;
+  min-height: 150px;
+  border-radius: .25rem;
+}

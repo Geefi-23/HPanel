@@ -50,7 +50,8 @@ CREATE TABLE IF NOT EXISTS hp_compras(
   id_compravel int not null,
   nome_compravel varchar(255) not null,
   codigo varchar(255) not null,
-  discord_usuario varchar(255) not null
+  discord_usuario varchar(255) not null,
+  resolvido enum('sim', 'nao') default 'nao'
 );
 
 ALTER TABLE hp_radio_horarios_marcados ADD CONSTRAINT fk_horario FOREIGN KEY(horario) REFERENCES hp_radio_horarios(id);
@@ -71,7 +72,8 @@ INSERT INTO hp_cargos VALUES (null, 'LOCUTOR');
 INSERT INTO hp_cargos VALUES (null, 'SONOPLASTA');
 
 INSERT INTO hp_permissions VALUES(null, 'GERENCIAR NOTICIAS'),(null, 'GERENCIAR MEMBROS'),(null, 'GERENCIAR CARGOS'),(null, 'GERENCIAR PERMISSOES'),
-(null, 'GERENCIAR EVENTOS'), (null, 'MARCAR HORARIOS'),(null, 'GERENCIAR HORARIOS'),(null, 'GERENCIAR COMPRAVEIS'),(null, 'GERENCIAR VALORES'),(null, 'GERENCIAR HABBLETXD HOME');
+(null, 'GERENCIAR EVENTOS'), (null, 'MARCAR HORARIOS'),(null, 'GERENCIAR HORARIOS'),(null, 'GERENCIAR COMPRAVEIS'),(null, 'GERENCIAR VALORES'),(null, 'GERENCIAR HABBLETXD HOME')
+(null, 'GERENCIAR COMPRAS'),(null, 'GERENCIAR EMBLEMAS'),(null, 'GERENCIAR PEDIDOS RADIO');
 
 INSERT INTO hp_cargos_permissions VALUES(null, 1, 1), (null, 1, 2),(null, 1, 3),(null, 1, 4),(null, 1, 5),(null, 1, 6),(null, 1, 7),(null, 1, 8),(null, 9, 6),(null, 9, 7),
 (null, 1, 9),(null, 1, 10);

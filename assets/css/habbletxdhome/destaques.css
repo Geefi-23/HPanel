@@ -1,6 +1,25 @@
 .user-card {
-  height: 100px;
-  width: 300px;
+  width: 400px;
+  padding: .5rem;
+  border: 1px solid var(--hp-color-panelBlue);
+  border-radius: .25rem;
+}
+
+.user-card .header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  border-bottom: 1px solid var(--hp-color-darkBlue);
+}
+
+.header-wrapper img {
+  object-position: 0 -1rem;
+  filter: drop-shadow(2px 2px 0px var(--hp-color-panelBlue));
+}
+
+.news-card {
+  width: 400px;
   padding: .5rem;
   border: 1px solid var(--hp-color-panelBlue);
   border-radius: .25rem;

@@ -44,7 +44,11 @@
         </a>
         <a href="compraveis/gerenciar" class="functional-card">
           <h4>Gerenciar compráveis</h4>
-          <span>Use esta área para gerenciar itens compráveis</span>
+          <span>Use esta área para gerenciar itens compráveis.</span>
+        </a>
+        <a href="compraveis/gerenciar-valores" class="functional-card">
+          <h4>Gerenciar valores</h4>
+          <span>Use esta área para gerenciar os valores do site.</span>
         </a>
       </div>
     </main>

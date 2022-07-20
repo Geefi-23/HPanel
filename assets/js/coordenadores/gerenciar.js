@@ -102,7 +102,7 @@ const loadTable = async () => {
     evt.preventDefault();
 
     const regex = {
-      nome: /[A-Za-z0-9_]+/g,
+      nome: /.+/g,
       senha: /.{6,18}/g,
       cargo: /.*/g
     };

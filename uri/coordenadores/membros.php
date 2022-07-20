@@ -61,8 +61,8 @@
           <form name="addMember" class="post-form bg-white p-3 rounded">
             <h4>Adicionar membro</h4>
             <label>
-              <small class="d-block">Letras de A-Z e a-z, números de 0-9 e underlines (_).</small>
-              <input name="nome" class="w-100" placeholder="Nome" autocomplete="off" pattern="[A-Za-z0-9_]*" />
+              <small class="d-block">Qualquer caractére que não seja espaço.</small>
+              <input name="nome" class="w-100" placeholder="Nome" autocomplete="off" pattern="[^\s]*" />
             </label>
             <input name="senha" type="password" placeholder="Senha" autocomplete="off" />
             <select name="cargo" class="border rounded">
@@ -83,7 +83,10 @@
         <div id="modal-editarmembro" class="hp-modal">
           <form name="editMember" class="post-form bg-white p-3 rounded">
             <h4>Editar membro</h4>
-            <input name="nome" placeholder="Nome" autocomplete="off" pattern="[A-Za-z0-9_]*"/>
+            <label>
+              <small class="d-block">Qualquer caractére que não seja espaço.</small>
+              <input name="nome" placeholder="Nome" autocomplete="off" pattern="[^\s]*"/>
+            </label>
             <select name="cargo" class="border rounded">
               <?php foreach ($cargos as $cargo): ?>
                 <option value="<?php echo $cargo['id'] ?>"><?php echo $cargo['nome'] ?></option>

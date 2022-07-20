@@ -9,11 +9,28 @@ const ROUTE_PERMISSIONS = 'permissoes/';
 const ROUTE_RADIO_HORARIOS = 'radio_horarios/';
 const ROUTE_VALUES = 'values/';
 const ROUTE_PURCHASES = 'compras/';
+const ROUTE_CAROUSEL = 'carousel/';
+const ROUTE_BADGE = 'badges/';
+const ROUTE_RADIO_PEDIDOS = 'requests/';
 
 const API = () => {
   return {
     hbtUsers: async (action, queryparams = {}, init = {}) => {
       let url = EXTERNAL_URL+ROUTE_USERS+action+`.php${Object.entries(queryparams).length !== 0 ? '?':''}`;
+    
+      if (Object.entries(queryparams).length !== 0) {
+        for (let param in queryparams) {
+          url += `${param}=${queryparams[param]}&`;
+        }
+        url = url.substring(0, url.length - 1);
+      } 
+
+      let res = await (await fetch(url, init)).json();
+      return res;
+    },
+
+    radioRequests: async (action, queryparams = {}, init = {}) => {
+      let url = EXTERNAL_URL+ROUTE_RADIO_PEDIDOS+action+`.php${Object.entries(queryparams).length !== 0 ? '?':''}`;
     
       if (Object.entries(queryparams).length !== 0) {
         for (let param in queryparams) {
@@ -39,9 +56,17 @@ const API = () => {
       let res = await (await fetch(url, init)).json();
       return res;
     },
-    news: async (action, init = {}) => {
-      
-      let res = await (await fetch(EXTERNAL_URL+ROUTE_NEWS+action+'.php', init)).json();
+    news: async (action, queryparams = {}, init = {}) => {
+      let url = EXTERNAL_URL+ROUTE_NEWS+action+`.php${Object.entries(queryparams).length !== 0 ? '?':''}`;
+    
+      if (Object.entries(queryparams).length !== 0) {
+        for (let param in queryparams) {
+          url += `${param}=${queryparams[param]}&`;
+        }
+        url = url.substring(0, url.length - 1);
+      } 
+
+      let res = await (await fetch(url, init)).json();
       return res;
     },
     buyable: async (action, init = {}) => {
@@ -112,6 +137,35 @@ const API = () => {
 
       let res = await (await fetch(url, init)).json();
       return res;
+    },
+    carousel: async (action, queryparams = {}, init = {}) => {
+      let url = EXTERNAL_URL+ROUTE_CAROUSEL+action+`.php${Object.entries(queryparams).length !== 0 ? '?':''}`;
+    
+      if (Object.entries(queryparams).length !== 0) {
+        for (let param in queryparams) {
+          url += `${param}=${queryparams[param]}&`;
+        }
+        url = url.substring(0, url.length - 1);
+      } 
+
+      let res = await (await fetch(url, init)).json();
+      return res;
+    },
+    emblemas: async (action, queryparams = {}, init = {}) => {
+      let url = EXTERNAL_URL+ROUTE_BADGE+action+`.php${Object.entries(queryparams).length !== 0 ? '?':''}`;
+    
+      if (Object.entries(queryparams).length !== 0) {
+        for (let param in queryparams) {
+          url += `${param}=${queryparams[param]}&`;
+        }
+        url = url.substring(0, url.length - 1);
+      } 
+
+      let res = await (await fetch(url, init)).json();
+      return res;
+    },
+    getMedia: (filename) => {
+      return EXTERNAL_URL+'media/get.php?filename='+filename;
     },
   };
 };

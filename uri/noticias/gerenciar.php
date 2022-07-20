@@ -31,8 +31,15 @@
     require '../../assets/components/sidebar.php';
     require '../../assets/components/loader.php';
   ?>
-  <main class="d-flex gap-3 flex-column p-3" id="noticias"></main>
-
+  <main>
+    <h4>Gerenciar noticias</h4>
+    <div class='d-flex gap-3 flex-column p-3' id="noticias"></div>
+    <nav class="d-flex justify-content-evenly w-25 pb-5" >
+      <a href="/painel/noticias/gerenciar?page=<?php echo ((int)$_GET['page'] - 1) ?>">Anterior</a>
+      <a href="/painel/noticias/gerenciar?page=<?php echo ((int)$_GET['page'] + 1) ?>">Proximo</a>
+    </nav>
+  </main>
+  
   <script src="https://kit.fontawesome.com/83b300201b.js" crossorigin="anonymous"></script>
   <script src="/painel/assets/js/noticias/gerenciar.js" type="module"></script>
 </body>

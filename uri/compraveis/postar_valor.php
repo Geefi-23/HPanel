@@ -39,6 +39,11 @@
 		<main class="p-5">
 			<h4>Postar valor</h4>
 			<form action="#" method="POST" class="post-form" name="valores">
+				<div>
+          <span>Ícone:</span>
+          <label id="icone" class="image-input"></label>
+        </div>
+				<input name="icone" type="text" autocomplete="off" placeholder="Link do ícone do valor" />
 				<input name="nome" class="input" type="text" placeholder="Nome do valor" autocomplete="off">
 				<input name="preco" class="input" type="number" step=".01" placeholder="Preço na loja" autocomplete="off">
 				<input name="valorltd" class="input" type="number" step=".01" placeholder="Valor em LTD" autocomplete="off">
@@ -79,12 +84,13 @@
 				<label id="uploadimage-wrapper" class="mt-3">
 					<div class="file-input-btn">
 						<i class="fa fa-download me-2"></i>
-						Escolha a imagem
+						Escolha a imagem do valor
 					</div>
 					<span id="image-name"></span>
 					<input name="imagem" type="file" class="d-none" />
 				</label>
 				<input name="urlimagem" class="d-none" type="text" placeholder="Insira a url da imagem" autocomplete="off"/>
+				<input name="emblema" class="d-none" type="text" placeholder="Insira a url do emblema" autocomplete="off"/>
 				<div>
           <button class="hp-btn-primary" type="submit">Enviar</button>
         </div>

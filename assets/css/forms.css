@@ -12,7 +12,7 @@
   transition: all ease-in .15s;
 }
 
-.post-form input:focus, .post-form textarea:focus{
+.post-form input:not(:read-only):focus, .post-form textarea:not(:read-only):focus{
   background-color: #fff;
   box-shadow: 0 0 0 3px #d8e6fc;
 }
@@ -46,4 +46,28 @@
 
 .file-input-btn:hover{
   background-color: #054a72;
+}
+
+.image-input {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  color: #d1d1d1;
+  font-family: "Font Awesome 6 Free";
+  font-size: 1.5rem;
+  height: 60px;
+  width: 60px;
+  border: 1px solid #d1d1d1;
+  border-radius: .25rem;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.image-input.filled::before {
+  content: "" !important;
+}
+
+.image-input::before {
+  content: "\f03e"
 }

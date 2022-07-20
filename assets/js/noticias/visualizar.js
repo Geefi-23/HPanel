@@ -23,7 +23,7 @@ form.onsubmit = async evt => {
   };
 
   loader.show();
-  const res = await api.news('update', {
+  const res = await api.news('update', {}, {
     method: 'POST',
     body: JSON.stringify(data)
   });

@@ -2,9 +2,10 @@ import loader from '../modules/Loader.js';
 import notif from '../modules/notifications.js';
 import api from '../modules/API.js';
 
-const pool = async () => {
+const pool = async (offset, limit) => {
   loader.show();
-  const news = await api.news('getall');
+  const news = await api.news('getall', { offset, limit });
+  const { count } = await api.news('countrows');
   loader.hide();
 
   let tabela = document.querySelector('#noticias');
@@ -34,7 +35,11 @@ const pool = async () => {
     card.href = '/painel/noticias/gerenciando/'+el.url;
     tabela.append(card);
   });
-  
+
 }
 
-pool()
+let indx = window.location.href.indexOf('?');
+let params = window.location.href.substring(indx + 1);
+let page = parseInt(params.split('=')[1]);
+
+pool((page - 1) * 10, 10);
